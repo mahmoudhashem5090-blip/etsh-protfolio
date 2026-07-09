@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="html-tag">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محمود م. هاشم | Video Editor Portfolio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Press+Start+2P&display=swap');
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; image-rendering: pixelated; }
+
+        /* تعديل الخلفية الكلية للموقع لتصبح باللون اللبني */
+        body { 
+            background-color: #a4e2fc; 
+            color: #000000; 
+            padding: 20px 10px; 
+            display: flex; 
+            justify-content: center; 
+            position: relative;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* تعديل سحاب الخلفية الخارجية ليناسب اللون اللبني الجديد */
+        .bg-cloud {
+            position: absolute;
+            background: #ffffff;
+            box-shadow: 4px 0 0 0 #ffffff, -4px 0 0 0 #ffffff, 0 4px 0 0 #ffffff, 0 -4px 0 0 #ffffff, 4px 4px 0 0 #ffffff, -4px 4px 0 0 #ffffff, 8px 4px 0 0 #ffffff, 12px 4px 0 0 #ffffff, 16px 8px 0 0 #ffffff, -8px 8px 0 0 #ffffff;
+            opacity: 0.6;
+            z-index: 0;
+        }
+        .bg-cloud-1 { width: 60px; height: 18px; top: 10%; left: -100px; animation: moveCloud 35s linear infinite; }
+        .bg-cloud-2 { width: 80px; height: 24px; top: 40%; left: -150px; animation: moveCloud 45s linear infinite 10s; }
+        .bg-cloud-3 { width: 50px; height: 15px; top: 70%; left: -80px; animation: moveCloud 30s linear infinite 5s; }
+
+        .arcade-monitor { 
+            background-color: #2e222f; 
+            border: 6px solid #000000; 
+            border-radius: 12px; 
+            width: 100%; 
+            max-width: 600px; 
+            padding: 15px; 
+            box-shadow: 0 15px 0 #120e1a; 
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* الشاشة الداخلية فضلت كحلي زي ما هي عشان تباين الألوان والكروت يفضل واضح وممتاز */
+        .game-screen { background-color: #1a1936; border: 4px solid #000000; padding: 15px; min-height: 800px; position: relative; }
+
+        /* Language Overlay */
+        .lang-overlay { position: fixed; z-index: 3000; top: 0; left: 0; width: 100%; height: 100%; background-color: #1a1936; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        .lang-box { background-color: #fff; border: 4px solid #000; padding: 30px 15px; max-width: 400px; width: 100%; text-align: center; box-shadow: 6px 6px 0 #000; }
+        .lang-btn { display: block; width: 100%; background-color: #3b82f6; color: white; border: 4px solid #000; padding: 10px; margin-bottom: 15px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 4px 4px 0 #000; }
+        .lang-btn:hover { background-color: #2563eb; transform: translate(-2px, -2px); }
+
+        /* Header & Clouds Inside Screen */
+        .game-header { background-color: #7bc5cd; border: 4px solid #000000; padding: 25px 15px; text-align: center; position: relative; margin-bottom: 25px; box-shadow: 0 6px 0 rgba(0,0,0,0.2); overflow: hidden; }
+        .pixel-cloud { position: absolute; background: #ffffff; box-shadow: 4px 0 0 0 #fff, -4px 0 0 0 #fff, 0 4px 0 0 #fff, 0 -4px 0 0 #fff, 4px 4px 0 0 #fff, -4px 4px 0 0 #fff, 8px 4px 0 0 #fff, 12px 4px 0 0 #fff, 16px 8px 0 0 #fff, -8px 8px 0 0 #fff; opacity: 0.85; z-index: 1; }
+        .cloud-1 { width: 35px; height: 12px; top: 15px; left: -50px; animation: moveCloud 20s linear infinite; }
+        .cloud-2 { width: 50px; height: 16px; top: 45px; left: -70px; animation: moveCloud 28s linear infinite 5s; }
+        .cloud-3 { width: 30px; height: 10px; top: 80px; left: -40px; animation: moveCloud 15s linear infinite 2s; }
+        
+        @keyframes moveCloud { 0% { left: -150px; } 100% { left: 100%; } }
+
+        .profile-img, .game-header h1, .game-header h2, .bio-box, .social-links { position: relative; z-index: 2; }
+        .profile-img { width: 110px; height: 110px; border: 4px solid #000000; background-color: #fff; object-fit: cover; margin-bottom: 12px; border-radius: 4px; }
+        .game-header h1 { font-size: 26px; color: #000000; margin-bottom: 5px; text-shadow: 2px 2px 0 #fff; }
+        .game-header h2 { font-size: 12px; font-family: 'Press Start 2P', monospace; background-color: #000; color: #fff; display: inline-block; padding: 4px 10px; margin-bottom: 15px; }
+        .bio-box { background-color: #ffffff; border: 4px solid #000000; padding: 15px; text-align: right; font-size: 14px; color: #000; box-shadow: 4px 4px 0 #000000; }
+        html[dir="ltr"] .bio-box { text-align: left; }
+
+        .social-links { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
+        .social-btn { background-color: #fff; color: #000; border: 4px solid #000; padding: 6px 12px; text-decoration: none; font-size: 13px; font-weight: bold; box-shadow: 3px 3px 0 #000; }
+        .social-btn:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 #000; }
+        .social-btn.whatsapp { background-color: #22c55e; color: #fff; }
+        .social-btn.instagram { background-color: #e1306c; color: #fff; }
+
+        .section-title { font-size: 18px; color: #ffffff; margin-bottom: 15px; text-shadow: 2px 2px 0 #000; display: flex; align-items: center; gap: 8px; }
+        .grid-categories { display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px; }
+        .category-card { border: 4px solid #000000; padding: 25px 15px; cursor: pointer; box-shadow: 5px 5px 0 #000000; transition: transform 0.1s; text-align: center; }
+        .category-card:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 #000000; }
+        .card-medical { background-color: #a3e2bc; }
+        .card-clothes { background-color: #fbc3d6; }
+        .card-realestate { background-color: #c3d6fb; }
+        .category-card h3 { font-size: 22px; color: #000000; text-shadow: 1px 1px 0 #fff; }
+
+        /* Loaders & Modals */
+        .loading-overlay { display: none; position: fixed; z-index: 2500; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(24, 20, 37, 0.95); justify-content: center; align-items: center; flex-direction: column; }
+        .pixel-loader-box { width: 40px; height: 40px; background-color: #3b82f6; border: 4px solid #000; animation: pixelJump 0.5s infinite alternate; margin-bottom: 20px; box-shadow: 4px 4px 0 #000; }
+        @keyframes pixelJump { 0% { transform: translateY(0); background-color: #3b82f6; } 100% { transform: translateY(-20px); background-color: #facc15; } }
+        .loading-text { font-size: 16px; font-weight: 900; color: #facc15; text-shadow: 2px 2px 0 #000; text-align: center; padding: 0 20px; }
+
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); padding: 10px; overflow-y: auto; }
+        .modal-content { background-color: #ffffff; border: 4px solid #000000; margin: 10% auto; max-width: 450px; width: 100%; box-shadow: 8px 8px 0 #000000; position: relative; }
+        .modal-header-bar { background-color: #7bc5cd; border-bottom: 4px solid #000; padding: 10px; display: flex; justify-content: space-between; align-items: center; }
+        .close-btn { background-color: #ef4444; color: white; border: 3px solid #000; width: 28px; height: 28px; display: flex; justify-content: center; align-items: center; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 2px 2px 0 #000; }
+        .modal-body { padding: 15px; }
+        .thumbnail-container { position: relative; width: 100%; border: 4px solid #000; background-color: #000; margin-bottom: 15px; cursor: pointer; box-shadow: 4px 4px 0 rgba(0,0,0,0.1); }
+        .video-thumbnail { width: 100%; height: auto; display: block; }
+        .play-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); display: flex; justify-content: center; align-items: center; }
+        .play-icon-box { background-color: #facc15; border: 4px solid #000; padding: 8px 15px; font-weight: 900; font-size: 13px; color: #000; box-shadow: 3px 3px 0 #000; }
+        .client-info { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; background-color: #f3f4f6; padding: 10px; border: 3px solid #000; }
+        .client-img { width: 55px; height: 55px; border: 3px solid #000; object-fit: cover; }
+        .client-name { font-size: 14px; font-weight: 900; color: #000; }
+        .client-bio { font-size: 12px; color: #555; }
+        .project-desc { font-size: 13px; color: #000; background-color: #fffde7; padding: 12px; border: 3px solid #000; }
+        footer { text-align: center; margin-top: 30px; font-size: 11px; color: #888; text-shadow: 1px 1px 0 #000; }
+    </style>
+</head>
+<body>
+
+<div class="bg-cloud bg-cloud-1"></div>
+<div class="bg-cloud bg-cloud-2"></div>
+<div class="bg-cloud bg-cloud-3"></div>
+
+<div id="languageOverlay" class="lang-overlay">
+    <div class="lang-box">
+        <h2 id="lang-question">بتتكلم لغة إيه؟ / Choose language</h2>
+        <button class="lang-btn" onclick="selectLanguage('ar')">العربية</button>
+        <button class="lang-btn" onclick="selectLanguage('en')">English</button>
+    </div>
+</div>
+
+<div id="loadingOverlay" class="loading-overlay">
+    <div class="pixel-loader-box"></div>
+    <div id="loadingText" class="loading-text"></div>
+</div>
+
+<div class="arcade-monitor" id="mainMonitor" style="display: none;">
+    <div class="game-screen">
+        <div class="game-header">
+            <div class="pixel-cloud cloud-1"></div>
+            <div class="pixel-cloud cloud-2"></div>
+            <div class="pixel-cloud cloud-3"></div>
+            <img src="https://i.postimg.cc/65P8T2VB/IMG-2686.png" alt="اتش" class="profile-img">
+            <h1 id="prof-title">اتش</h1>
+            <h2 id="prof-subtitle">VIDEO EDITOR</h2>
+            <div class="bio-box" id="prof-bio"></div>
+            <div class="social-links">
+                <a href="https://wa.me/qr/etshh" class="social-btn whatsapp" target="_blank" id="btn-whatsapp">واتساب</a>
+                <a href="https://www.instagram.com/h3shem9?igsh=MWd6enl1amUzZHF2cw%3D%3D&utm_source=qr" class="social-btn instagram" target="_blank" id="btn-insta">إنستجرام</a>
+            </div>
+        </div>
+        <h2 class="section-title"><span>[▶]</span> <span id="sec-title">الأقسام الرئيسية</span></h2>
+        <div class="grid-categories">
+            <div class="category-card card-medical" onclick="triggerModal('medical-modal')"><h3 id="cat-med-title"></h3></div>
+            <div class="category-card card-clothes" onclick="triggerModal('clothes-modal')"><h3 id="cat-cloth-title"></h3></div>
+            <div class="category-card card-realestate" onclick="triggerModal('realestate-modal')"><h3 id="cat-real-title"></h3></div>
+        </div>
+        <footer><p>© 2026 محمود م. هاشم. <span id="footer-text"></span></p></footer>
+    </div>
+</div>
+
+<div id="medical-modal" class="modal"><div class="modal-content"><div class="modal-header-bar"><h3 id="m-med-head"></h3><span class="close-btn" onclick="closeModal('medical-modal')">X</span></div><div class="modal-body"><div class="thumbnail-container" onclick="window.open('https://vimeo.com/XXXXXX', '_blank')"><img src="medical-thumb.jpg" alt="Video" class="video-thumbnail"><div class="play-overlay"><div class="play-icon-box">► WATCH VIDEO</div></div></div><div class="client-info"><img src="client-medical.jpg" class="client-img"><div><div class="client-name" id="m-med-name"></div><div class="client-bio" id="m-med-bio"></div></div></div><div class="project-desc" id="m-med-desc"></div></div></div></div>
+<div id="clothes-modal" class="modal"><div class="modal-content"><div class="modal-header-bar"><h3 id="m-cloth-head"></h3><span class="close-btn" onclick="closeModal('clothes-modal')">X</span></div><div class="modal-body"><div class="thumbnail-container" onclick="window.open('https://vimeo.com/XXXXXX', '_blank')"><img src="clothes-thumb.jpg" alt="Video" class="video-thumbnail"><div class="play-overlay"><div class="play-icon-box">► WATCH VIDEO</div></div></div><div class="client-info"><img src="client-clothes.jpg" class="client-img"><div><div class="client-name" id="m-cloth-name"></div><div class="client-bio" id="m-cloth-bio"></div></div></div><div class="project-desc" id="m-cloth-desc"></div></div></div></div>
+<div id="realestate-modal" class="modal"><div class="modal-content"><div class="modal-header-bar"><h3 id="m-real-head"></h3><span class="close-btn" onclick="closeModal('realestate-modal')">X</span></div><div class="modal-body"><div class="thumbnail-container" onclick="window.open('https://vimeo.com/XXXXXX', '_blank')"><img src="realestate-thumb.jpg" alt="Video" class="video-thumbnail"><div class="play-overlay"><div class="play-icon-box">► WATCH VIDEO</div></div></div><div class="client-info"><img src="client-realestate.jpg" class="client-img"><div><div class="client-name" id="m-real-name"></div><div class="client-bio" id="m-real-bio"></div></div></div><div class="project-desc" id="m-real-desc"></div></div></div></div>
+
+<script>
+    const translations = {
+        ar: {
+            bio: "فيديو إديتور محترف بخبرة سنتين ونصف في مجال صناعة وتعديل الفيديو. متميز ومتخصص بشكل مكثف في صناعة المحتوى الطبي ومحتوى السوشيال ميديا عموماً.",
+            whatsapp: "واتساب", insta: "إنستجرام", sections: "مجالات العمل الرئيسية",
+            medTitle: "المجال الطبي 🩺", clothTitle: "مجالات ملابس 👕👗", realTitle: "مجالات عقارات 🏢",
+            loading: "هتدفع؟ هوريك اللي عمرك ما شوفتو...", footer: "جميع الحقوق محفوظة.",
+            mMedHead: "المجال الطبي", mMedName: "د. سارة علي", mMedBio: "طبيبة ومتحدثة طبية للمحتوى التوعوي.", mMedDesc: "فيديو مونتاج لعيادة العيون، تم العمل مع د. سارة بشرح طبي مبسط وجذاب.",
+            mClothHead: "مجالات ملابس", mClothName: "براند MOZAYYANA للعبايات", mClothBio: "براند متكامل للأزياء الراقية والعبايات.", mClothDesc: "فيديو تسويقي يبرز تفاصيل القماش جودة التطريز مع تصحيح ألوان سينمائي مخصص للبراند.",
+            mRealHead: "مجالات عقارات", mRealName: "شركة الرواد للتطوير العقاري", mRealBio: "تسويق الوحدات السكنية والتجارية الفاخرة.", mRealDesc: "فيديو جولة داخلية يعتمد على الانتقالات السلسة والموسيقى المحفزة لجذب المشاهدين."
+        },
+        en: {
+            bio: "Professional Video Editor with 2.5 years of experience. Specialized in medical videos and dynamic social media content creation.",
+            whatsapp: "WhatsApp", insta: "Instagram", sections: "Main Work Categories",
+            medTitle: "Medical Field 🩺", clothTitle: "Clothing Brands 👕👗", realTitle: "Real Estate 🏢",
+            loading: "Ready to pay? I'll show you magic...", footer: "All rights reserved.",
+            mMedHead: "Medical Field", mMedName: "Dr. Sara Ali", mMedBio: "Medical practitioner and content creator.", mMedDesc: "Clinic explainer video with clean cuts, dynamic subtitles, and simplified medical motion visuals.",
+            mClothHead: "Clothing Brands", mClothName: "MOZAYYANA Brand", mClothBio: "Luxury Abayas and female apparel brand.", mClothDesc: "A high-end commercial focus video with specialized color grading emphasizing texture and luxury.",
+            mRealHead: "Real Estate", mRealName: "Al-Ruwad Real Estate", mRealBio: "Luxury residential marketing experts.", mRealDesc: "Interior promotional video utilizing smooth transitions and sound design to elevate property value."
+        }
+    };
+
+    let currentLang = 'ar';
+    function selectLanguage(lang) {
+        currentLang = lang;
+        document.getElementById('html-tag').setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+        document.getElementById('prof-bio').innerHTML = translations[lang].bio;
+        document.getElementById('btn-whatsapp').innerText = translations[lang].whatsapp;
+        document.getElementById('btn-insta').innerText = translations[lang].insta;
+        document.getElementById('sec-title').innerText = translations[lang].sections;
+        document.getElementById('cat-med-title').innerText = translations[lang].medTitle;
+        document.getElementById('cat-cloth-title').innerText = translations[lang].clothTitle;
+        document.getElementById('cat-real-title').innerText = translations[lang].realTitle;
+        document.getElementById('footer-text').innerText = translations[lang].footer;
+        document.getElementById('m-med-head').innerText = translations[lang].mMedHead;
+        document.getElementById('m-med-name').innerText = translations[lang].mMedName;
+        document.getElementById('m-med-bio').innerText = translations[lang].mMedBio;
+        document.getElementById('m-med-desc').innerHTML = translations[lang].mMedDesc;
+        document.getElementById('m-cloth-head').innerText = translations[lang].mClothHead;
+        document.getElementById('m-cloth-name').innerText = translations[lang].mClothName;
+        document.getElementById('m-cloth-bio').innerText = translations[lang].mClothBio;
+        document.getElementById('m-cloth-desc').innerHTML = translations[lang].mClothDesc;
+        document.getElementById('m-real-head').innerText = translations[lang].mRealHead;
+        document.getElementById('m-real-name').innerText = translations[lang].mRealName;
+        document.getElementById('m-real-bio').innerText = translations[lang].mRealBio;
+        document.getElementById('m-real-desc').innerHTML = translations[lang].mRealDesc;
+        document.getElementById('languageOverlay').style.display = 'none';
+        document.getElementById('mainMonitor').style.display = 'block';
+    }
+
+    function triggerModal(modalId) {
+        const loader = document.getElementById('loadingOverlay');
+        document.getElementById('loadingText').innerText = translations[currentLang].loading;
+        loader.style.display = 'flex';
+        setTimeout(() => { loader.style.display = 'none'; document.getElementById(modalId).style.display = "block"; }, 2000);
+    }
+    function closeModal(modalId) { document.getElementById(modalId).style.display = "none"; }
+    window.onclick = function(event) { if (event.target.classList.contains('modal')) event.target.style.display = "none"; }
+</script>
+</body>
+</html>
