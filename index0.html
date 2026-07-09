@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="html-tag">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>محمود م. هاشم | Video Editor Portfolio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Changa:wght@700;800&family=Press+Start+2P&display=swap');
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; image-rendering: pixelated; }
+
+        /* ضبط الخطوط الافتراضية بناءً على اتجاه اللغة */
+        html[dir="rtl"] *, html[dir="rtl"] body { font-family: 'Changa', sans-serif; }
+        html[dir="ltr"] *, html[dir="ltr"] body { font-family: 'Changa', sans-serif; }
+
+        body { 
+            background-color: #a4e2fc; 
+            color: #000000; 
+            padding: 20px 10px; 
+            display: flex; 
+            justify-content: center; 
+            position: relative;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .bg-cloud {
+            position: absolute;
+            background: #ffffff;
+            box-shadow: 4px 0 0 0 #ffffff, -4px 0 0 0 #ffffff, 0 4px 0 0 #ffffff, 0 -4px 0 0 #ffffff, 4px 4px 0 0 #ffffff, -4px 4px 0 0 #ffffff, 8px 4px 0 0 #ffffff, 12px 4px 0 0 #ffffff, 16px 8px 0 0 #ffffff, -8px 8px 0 0 #ffffff;
+            opacity: 0.6;
+            z-index: 0;
+        }
+        .bg-cloud-1 { width: 60px; height: 18px; top: 10%; left: -100px; animation: moveCloud 35s linear infinite; }
+        .bg-cloud-2 { width: 80px; height: 24px; top: 40%; left: -150px; animation: moveCloud 45s linear infinite 10s; }
+        .bg-cloud-3 { width: 50px; height: 15px; top: 70%; left: -80px; animation: moveCloud 30s linear infinite 5s; }
+
+        .arcade-monitor { 
+            background-color: #2e222f; 
+            border: 6px solid #000000; 
+            border-radius: 12px; 
+            width: 100%; 
+            max-width: 600px; 
+            padding: 15px; 
+            box-shadow: 0 15px 0 #120e1a; 
+            position: relative;
+            z-index: 1;
+        }
+        
+        .game-screen { background-color: #1a1936; border: 4px solid #000000; padding: 15px; min-height: 800px; position: relative; }
+
+        /* Language Overlay */
+        .lang-overlay { position: fixed; z-index: 3000; top: 0; left: 0; width: 100%; height: 100%; background-color: #1a1936; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        .lang-box { background-color: #fff; border: 4px solid #000; padding: 30px 15px; max-width: 400px; width: 100%; text-align: center; box-shadow: 6px 6px 0 #000; }
+        .lang-btn { display: block; width: 100%; background-color: #3b82f6; color: white; border: 4px solid #000; padding: 10px; margin-bottom: 15px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 4px 4px 0 #000; }
+        .lang-btn:hover { background-color: #2563eb; transform: translate(-2px, -2px); }
+
+        /* Header & Clouds */
+        .game-header { background-color: #7bc5cd; border: 4px solid #000000; padding: 25px 15px; text-align: center; position: relative; margin-bottom: 25px; box-shadow: 0 6px 0 rgba(0,0,0,0.2); overflow: hidden; }
+        .pixel-cloud { position: absolute; background: #ffffff; box-shadow: 4px 0 0 0 #fff, -4px 0 0 0 #fff, 0 4px 0 0 #fff, 0 -4px 0 0 #fff, 4px 4px 0 0 #fff, -4px 4px 0 0 #fff, 8px 4px 0 0 #fff, 12px 4px 0 0 #fff, 16px 8px 0 0 #fff, -8px 8px 0 0 #fff; opacity: 0.85; z-index: 1; }
+        .cloud-1 { width: 35px; height: 12px; top: 15px; left: -50px; animation: moveCloud 20s linear infinite; }
+        .cloud-2 { width: 50px; height: 16px; top: 45px; left: -70px; animation: moveCloud 28s linear infinite 5s; }
+        .cloud-3 { width: 30px; height: 10px; top: 80px; left: -40px; animation: moveCloud 15s linear infinite 2s; }
+        
+        @keyframes moveCloud { 0% { left: -150px; } 100% { left: 100%; } }
+
+        .profile-img, .game-header h1, .game-header h2, .bio-box, .social-links { position: relative; z-index: 2; }
+        .profile-img { width: 140px; height: 140px; border: 4px solid #000000; background-color: #fff; object-fit: cover; margin-bottom: 12px; border-radius: 4px; }
+        
+        .game-header h1 { font-size: 28px; color: #000000; margin-bottom: 5px; text-shadow: 2px 2px 0 #fff; letter-spacing: -0.5px; }
+        .game-header h2 { font-size: 11px; font-family: 'Press Start 2P', monospace !important; background-color: #000; color: #fff; display: inline-block; padding: 6px 12px; margin-bottom: 15px; }
+        
+        .bio-box { background-color: #ffffff; border: 4px solid #000000; padding: 15px; text-align: right; font-size: 15px; color: #000; box-shadow: 4px 4px 0 #000000; line-height: 1.6; }
+        html[dir="ltr"] .bio-box { text-align: left; font-size: 13px; }
+
+        .social-links { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
+        .social-btn { background-color: #fff; color: #000; border: 4px solid #000; padding: 6px 12px; text-decoration: none; font-size: 14px; font-weight: bold; box-shadow: 3px 3px 0 #000; }
+        .social-btn:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 #000; }
+        .social-btn.whatsapp { background-color: #22c55e; color: #fff; }
+        .social-btn.instagram { background-color: #e1306c; color: #fff; }
+
+        .section-title { font-size: 18px; color: #ffffff; margin-bottom: 15px; text-shadow: 2px 2px 0 #000; display: flex; align-items: center; gap: 8px; }
+        .grid-categories { display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px; }
+        .category-card { border: 4px solid #000000; padding: 25px 15px; cursor: pointer; box-shadow: 5px 5px 0 #000000; transition: transform 0.1s; text-align: center; }
+        .category-card:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 #000000; }
+        .card-medical { background-color: #a3e2bc; }
+        .card-clothes { background-color: #fbc3d6; }
+        .card-ads { background-color: #c3d6fb; }
+        .category-card h3 { font-size: 22px; color: #000000; text-shadow: 1px 1px 0 #fff; }
+
+        /* Loaders & Modals */
+        .loading-overlay { display: none; position: fixed; z-index: 2500; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(24, 20, 37, 0.95); justify-content: center; align-items: center; flex-direction: column; }
+        .pixel-loader-box { width: 40px; height: 40px; background-color: #3b82f6; border: 4px solid #000; animation: pixelJump 0.5s infinite alternate; margin-bottom: 20px; box-shadow: 4px 4px 0 #000; }
+        @keyframes pixelJump { 0% { transform: translateY(0); background-color: #3b82f6; } 100% { transform: translateY(-20px); background-color: #facc15; } }
+        .loading-text { font-size: 16px; font-weight: 900; color: #facc15; text-shadow: 2px 2px 0 #000; text-align: center; padding: 0 20px; }
+
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); padding: 10px; overflow-y: auto; }
+        .modal-content { background-color: #ffffff; border: 4px solid #000000; margin: 5% auto; max-width: 450px; width: 100%; box-shadow: 8px 8px 0 #000000; position: relative; }
+        .modal-header-bar { background-color: #7bc5cd; border-bottom: 4px solid #000; padding: 10px; display: flex; justify-content: space-between; align-items: center; }
+        .close-btn { background-color: #ef4444; color: white; border: 3px solid #000; width: 28px; height: 28px; display: flex; justify-content: center; align-items: center; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 2px 2px 0 #000; }
+        .modal-body { padding: 15px; }
+        
+        .video-item-block { border-bottom: 4px dashed #000; padding-bottom: 15px; margin-bottom: 20px; }
+        .video-item-block:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+
+        .thumbnail-container { position: relative; width: 100%; border: 4px solid #000; background-color: #000; margin-bottom: 15px; cursor: pointer; box-shadow: 4px 4px 0 rgba(0,0,0,0.1); }
+        .video-thumbnail { width: 100%; height: auto; display: block; }
+        .play-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); display: flex; justify-content: center; align-items: center; }
+        .play-icon-box { background-color: #facc15; border: 4px solid #000; padding: 8px 15px; font-weight: 900; font-size: 13px; color: #000; box-shadow: 3px 3px 0 #000; }
+        
+        .client-info { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; background-color: #f3f4f6; padding: 10px; border: 3px solid #000; }
+        .client-img { width: 55px; height: 55px; border: 3px solid #000; object-fit: cover; }
+        .client-name { font-size: 15px; font-weight: 900; color: #000; }
+        .client-bio { font-size: 13px; color: #555; }
+        .project-desc { font-size: 14px; color: #000; background-color: #fffde7; padding: 12px; border: 3px solid #000; line-height: 1.5; }
+        footer { text-align: center; margin-top: 30px; font-size: 12px; color: #888; text-shadow: 1px 1px 0 #000; }
+        
+        /* تفعيل خط البيكسل فقط للعناصر المحددة بالإنجليزية */
+        html[dir="ltr"] .game-header h2, html[dir="ltr"] .play-icon-box { font-family: 'Press Start 2P', monospace !important; }
+    </style>
+</head>
+<body>
+
+<div class="bg-cloud bg-cloud-1"></div>
+<div class="bg-cloud bg-cloud-2"></div>
+<div class="bg-cloud bg-cloud-3"></div>
+
+<div id="languageOverlay" class="lang-overlay">
+    <div class="lang-box">
+        <h2 id="lang-question">بتتكلم لغة إيه؟ / Choose language</h2>
+        <button class="lang-btn" onclick="selectLanguage('ar')">العربية</button>
+        <button class="lang-btn" onclick="selectLanguage('en')">English</button>
+    </div>
+</div>
+
+<div id="loadingOverlay" class="loading-overlay">
+    <div class="pixel-loader-box"></div>
+    <div id="loadingText" class="loading-text"></div>
+</div>
+
+<div class="arcade-monitor" id="mainMonitor" style="display: none;">
+    <div class="game-screen">
+        <div class="game-header">
+            <div class="pixel-cloud cloud-1"></div>
+            <div class="pixel-cloud cloud-2"></div>
+            <div class="pixel-cloud cloud-3"></div>
+            
+            <img src="https://i.postimg.cc/65P8T2VB/IMG-2686.png" alt="محمود م. هاشم" class="profile-img">
+            
+            <h1 id="prof-title">محمود م. هاشم</h1>
+            <h2 id="prof-subtitle">VIDEO EDITOR</h2>
+            <div class="bio-box" id="prof-bio"></div>
+            <div class="social-links">
+                <a href="https://wa.me/qr/etshh" class="social-btn whatsapp" target="_blank" id="btn-whatsapp">واتساب</a>
+                <a href="https://www.instagram.com/h3shem9?igsh=MWd6enl1amUzZHF2cw%3D%3D&utm_source=qr" class="social-btn instagram" target="_blank" id="btn-insta">إنستجرام</a>
+            </div>
+        </div>
+        <h2 class="section-title"><span>[▶]</span> <span id="sec-title">الأقسام الرئيسية</span></h2>
+        <div class="grid-categories">
+            <div class="category-card card-medical" onclick="triggerModal('medical-modal')"><h3 id="cat-med-title"></h3></div>
+            <div class="category-card card-clothes" onclick="triggerModal('clothes-modal')"><h3 id="cat-cloth-title"></h3></div>
+            <div class="category-card card-ads" onclick="triggerModal('ads-modal')"><h3 id="cat-ads-title"></h3></div>
+        </div>
+        <footer><p>© 2026 محمود م. هاشم. <span id="footer-text"></span></p></footer>
+    </div>
+</div>
+
+<div id="medical-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header-bar">
+            <h3 id="m-med-head"></h3>
+            <span class="close-btn" onclick="closeModal('medical-modal')">X</span>
+        </div>
+        <div class="modal-body">
+            <div class="video-item-block">
+                <div class="thumbnail-container" onclick="window.open('https://vimeo.com/1208387686?share=copy&fl=sv&fe=ci', '_blank')">
+                    <img src="medical-thumb.jpg" alt="Video 1" class="video-thumbnail">
+                    <div class="play-overlay"><div class="play-icon-box">► WATCH VIDEO 1</div></div>
+                </div>
+                <div class="client-info">
+                    <img src="client-medical.jpg" class="client-img">
+                    <div>
+                        <div class="client-name class-med-name-target"></div>
+                        <div class="client-bio class-med-bio-target"></div>
+                    </div>
+                </div>
+                <div class="project-desc class-med-desc-target-1"></div>
+            </div>
+            
+            <div class="video-item-block">
+                <div class="thumbnail-container" onclick="window.open('https://vimeo.com/1208387622?share=copy&fl=sv&fe=ci', '_blank')">
+                    <img src="medical-thumb.jpg" alt="Video 2" class="video-thumbnail">
+                    <div class="play-overlay"><div class="play-icon-box">► WATCH VIDEO 2</div></div>
+                </div>
+                <div class="client-info">
+                    <img src="client-medical.jpg" class="client-img">
+                    <div>
+                        <div class="client-name class-med-name-target"></div>
+                        <div class="client-bio class-med-bio-target"></div>
+                    </div>
+                </div>
+                <div class="project-desc class-med-desc-target-2"></div>
+            </div>
+
+            <div class="video-item-block">
+                <div class="thumbnail-container" onclick="window.open('https://drive.google.com/file/d/1HU6Zt5SJAEgx28QSCBaOZ4UXAylWbn9s/view?usp=drive_link', '_blank')">
+                    <img src="medical-thumb.jpg" alt="Libyan Health 1" class="video-thumbnail">
+                    <div class="play-overlay"><div class="play-icon-box">► WATCH VIDEO 3</div></div>
+                </div>
+                <div class="client-info">
+                    <img src="client-medical.jpg" class="client-img">
+                    <div>
+                        <div class="client-name class-ly-name-target"></div>
+                        <div class="client-bio class-ly-bio-target"></div>
+                    </div>
+                </div>
+                <div class="project-desc class-ly-desc-target-1"></div>
+            </div>
+
+            <div class="video-item-block">
+                <div class="thumbnail-container" onclick="window.open('https://drive.google.com/file/d/1EVGZ9vYei74lKhM-6wsfwsr8vMOg-Kk5/view?usp=drive_link', '_blank')">
+                    <img src="medical-thumb.jpg" alt="Libyan Health 2" class="video-thumbnail">
+                    <div class="play-overlay"><div class="play-icon-box">► WATCH VIDEO 4</div></div>
+                </div>
+                <div class="client-info">
+                    <img src="client-medical.jpg" class="client-img">
+                    <div>
+                        <div class="client-name class-ly-name-target"></div>
+                        <div class="client-bio class-ly-bio-target"></div>
+                    </div>
+                </div>
+                <div class="project-desc class-ly-desc-target-2"></div>
+            </div>
+
+            <div class="video-item-block">
+                <div class="thumbnail-container" onclick="window.open('https://drive.google.com/file/d/1B6-gHyEOeAGFwPUQiphEr14fJO2vSNcE/view?usp=drive_link', '_blank')">
+                    <img src="medical-thumb.jpg" alt="Libyan Health 3" class="video-thumbnail">
+                    <div class="play-overlay"><div class="play-icon-box">► WATCH VIDEO 5</div></div>
+                </div>
+                <div class="client-info">
+                    <img src="client-medical.jpg" class="client-img">
+                    <div>
+                        <div class="client-name class-ly-name-target"></div>
+                        <div class="client-bio class-ly-bio-target"></div>
+                    </div>
+                </div>
+                <div class="project-desc class-ly-desc-target-3"></div>
+            </div>
+
+            <div class="video-item-block">
+                <div class="thumbnail-container" onclick="window.open('https://drive.google.com/file/d/1Wr1JuQ9VA6KkG6Stdn44h_OEZruBRQ4I/view?usp=drive_link', '_blank')">
+                    <img src="medical-thumb.jpg" alt="Libyan Health 4" class="video-thumbnail">
+                    <div class="play-overlay"><div class="play-icon-box">► WATCH VIDEO 6</div></div>
+                </div>
+                <div class="client-info">
+                    <img src="client-medical.jpg" class="client-img">
+                    <div>
+                        <div class="client-name class-ly-name-target"></div>
+                        <div class="client-bio class-ly-bio-target"></div>
+                    </div>
+                </div>
+                <div class="project-desc class-ly-desc-target-4"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="clothes-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header-bar">
+            <h3 id="m-cloth-head"></h3>
+            <span class="close-btn" onclick="closeModal('clothes-modal')">X</span>
+        </div>
+        <div class="modal-body">
+            <div class="video-item-block">
+                <div class="thumbnail-container" onclick="window.open('https://vimeo.com/1208387622?share=copy&fl=sv&fe=ci', '_blank')">
+                    <img src="clothes-thumb.jpg" alt="Video Mozayyana" class="video-thumbnail">
+                    <div class="play-overlay"><div class="play-icon-box">► WATCH VIDEO 1</div></div>
+                </div>
+                <div class="client-info">
+                    <img src="client-clothes.jpg" class="client-img">
+                    <div>
+                        <div class="client-name" id="m-cloth-name"></div>
+                        <div class="client-bio" id="m-cloth-bio"></div>
+                    </div>
+                </div>
+                <div class="project-desc" id="m-cloth-desc"></div>
+            </div>
+
+            <div class="video-item-block">
+                <div class="thumbnail-container" onclick="window.open('https://drive.google.com/file/d/1HAQ7UArk7EljobY6HwAT-SlzOFwOs1eS/view?usp=sharing', '_blank')">
+                    <img src="clothes-thumb.jpg" alt="Kham Video 1" class="video-thumbnail">
+                    <div class="play-overlay"><div class="play-icon-box">► WATCH VIDEO 2</div></div>
+                </div>
+                <div class="client-info">
+                    <img src="client-clothes.jpg" class="client-img">
+                    <div>
+                        <div class="client-name class-kham-name-target"></div>
+                        <div class="client-bio class-kham-bio-target"></div>
+                    </div>
+                </div>
+                <div class="project-desc class-kham-desc-target-1"></div>
+            </div>
+
+            <div class="video-item-block">
+                <div class="thumbnail-container" onclick="window.open('https://drive.google.com/file/d/1ETr5RJ4ho7Am210S-PDnYTu0qW11nrn3/view?usp=drive_link', '_blank')">
+                    <img src="clothes-thumb.jpg" alt="Kham Video 2" class="video-thumbnail">
+                    <div class="play-overlay"><div class="play-icon-box">► WATCH VIDEO 3</div></div>
+                </div>
+                <div class="client-info">
+                    <img src="client-clothes.jpg" class="client-img">
+                    <div>
+                        <div class="client-name class-kham-name-target"></div>
+                        <div class="client-bio class-kham-bio-target"></div>
+                    </div>
+                </div>
+                <div class="project-desc class-kham-desc-target-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="ads-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header-bar">
+            <h3 id="m-ads-head"></h3>
+            <span class="close-btn" onclick="closeModal('ads-modal')">X</span>
+        </div>
+        <div class="modal-body">
+            <div class="thumbnail-container" onclick="window.open('https://vimeo.com/1208387685?share=copy&fl=sv&fe=ci', '_blank')">
+                <img src="ads-thumb.jpg" alt="Video Ads" class="video-thumbnail">
+                <div class="play-overlay"><div class="play-icon-box">► WATCH AD</div></div>
+            </div>
+            <div class="client-info">
+                <img src="client-ads.jpg" class="client-img">
+                <div>
+                    <div class="client-name" id="m-ads-name"></div>
+                    <div class="client-bio" id="m-ads-bio"></div>
+                </div>
+            </div>
+            <div class="project-desc" id="m-ads-desc"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const translations = {
+        ar: {
+            bio: "فيديو إديتور محترف بخبرة سنتين ونصف في مجال صناعة وتعديل الفيديو. متميز ومتخصص بشكل مكثف في صناعة المحتوى الطبي ومحتوى السوشيال ميديا عموماً. تواصل معي (تواصل واتساب | إرسال إيميل).",
+            whatsapp: "واتساب", insta: "إنستجرام", sections: "مجالات العمل الرئيسية",
+            medTitle: "المجال الطبي 🩺", clothTitle: "مجالات ملابس 👕👗", 
+            adsTitle: "إعلانات مختلفة 🎬✨",
+            loading: "هتدفع؟ هوريك اللي عمرك ما شوفتو...", footer: "جميع الحقوق محفوظة.",
+            mMedHead: "المجال الطبي", 
+            
+            // مستشفى الكمال
+            mMedName: "مستشفي الكمال لطب وجراحة الاسنان", 
+            mMedBio: "صرح طبي متكامل لرعاية وتجميل الأسنان.", 
+            mMedDesc1: "<b>فيديو 1:</b> فيديو بيتشرح فيه جزء من أشياء تخص طب الأسنان. ساعدنا في إن الفيديو يخرج للجمهور بشكل جذاب ومريح للعين لتوصيل المعلومة الطبية بأفضل جودة بصرية.",
+            mMedDesc2: "<b>فيديو 2:</b> فيديو توعوي آخر بيتشرح فيه تفاصيل تخص طب وجراحة الأسنان. ركّزنا فيه على إخراج حركة بصرية ممتازة ومريحة للعين تخلي العميل يتابع الفيديو للآخر.",
+            
+            // وزارة الصحة الليبية
+            mLyName: "وزارة الصحة الليبية",
+            mLyBio: "الحملة التوعوية الرسمية لحجاج بيت الله الحرام.",
+            mLyDesc1: "<b>فيديو 3 (الإرشادات الوقائية):</b> مونتاج وتحرير فيديو توعوي مخصص لحجاج بيت الله الحرام. يركز العمل على سلاسة إيصال النصائح الطبية والوقائية المعتمدة للالتزام بها قبل مغادرة الأراضي الليبية.",
+            mLyDesc2: "<b>فيديو 4 (الرعاية أثناء المناسك):</b> إدارة المشاهد والانتقالات السمع بصرية لإبراز طرق الوقاية من ضربات الشمس والإجهاد البدني للحجاج أثناء أداء المناسك لضمان سلامتهم.",
+            mLyDesc3: "<b>فيديو 5 (الحقيبة الطبية):</b> إخراج المكونات والضروريات الطبية الأساسية التي يجب توافرها في حقيبة كل حاج بشكل بصري منسق يضمن سرعة الفهم وثبات المعلومة.",
+            mLyDesc4: "<b>فيديو 6 (خط الطوارئ الساخن):</b> صناعة وتصميم الحركة والنصوص التوضيحية لعرض أرقام الطوارئ والبعثة الطبية الليبية لتسهيل تواصل الحجاج في الحالات الطارئة بسرعة ودقة.",
+
+            mClothHead: "مجالات ملابس", 
+            // براند مزيانة
+            mClothName: "براند MOZAYYANA للعبايات", 
+            mClothBio: "براند متكامل للأزياء الراقية والعبايات.", 
+            mClothDesc: "فيديو مونتاج إعلاني لبراندات الملابس والعبايات الفاخرة. فيديو تسويقي يبرز تفاصيل القماش جودة التطريز مع تصحيح ألوان سينمائي مخصص للبراند.",
+            
+            // مصنع أو شركة خام
+            mKhamName: "شركة ومصنع خام للملابس",
+            mKhamBio: "شركة ومصنع رائد متخصص في تصنيع وإنتاج الملابس الجاهزة.",
+            mKhamDesc1: "<b>فيديو 2:</b> فيديو ترويجي يستعرض خطوط الإنتاج وجودة التصنيع داخل مصنع خام. تم التركيز على ديناميكية الحركة وإبراز التفاصيل الفنية للخياطة والمراحل الإنتاجية.",
+            mKhamDesc2: "<b>فيديو 3:</b> مونتاج يستعرض جودة الخامات النهائية للملابس الجاهزة والتنسيق البصري للألوان، مصمم لتقديم هوية البراند بشكل احترافي وجذاب للمستهلك.",
+
+            mAdsHead: "إعلانات مختلفة", 
+            mAdsName: "مصنع ومحل الزريريك للأقمشة", 
+            mAdsBio: "من أكبر وأشهر متاجر الأقمشة في دولة ليبيا.", 
+            mAdsDesc: "مونتاج وفيديو إعلاني ترويجي يستعرض فخامة وتنوع الأقمشة داخل المتجر. ركزنا في المونتاج على الحركة السلسة والانتقالات الإيقاعية لإبراز جودة الخامات والتطريز بما يتماشى مع عراقة البراند ومكانته المشهورة داخل ليبيا."
+        },
+        en: {
+            bio: "Professional Video Editor with 2.5 years of experience. Specialized in medical videos and dynamic social media content creation.",
+            whatsapp: "WhatsApp", insta: "Instagram", sections: "Main Work Categories",
+            medTitle: "Medical Field 🩺", clothTitle: "Clothing Brands 👕👗", 
+            adsTitle: "Commercials & Ads 🎬✨",
+            loading: "Ready to pay? I'll show you magic...", footer: "All rights reserved.",
+            mMedHead: "Medical Field", 
+            
+            // Al-Kamal
+            mMedName: "Al-Kamal Dental Hospital", 
+            mMedBio: "Specialized medical center for dental care and surgery.", 
+            mMedDesc1: "<b>Video 1:</b> An educational dental care explainer video. We helped optimize the visuals to ensure an engaging, smooth, and eye-friendly presentation.",
+            mMedDesc2: "<b>Video 2:</b> Another professional clinical video. Engineered with clean cuts and solid visual timing to maintain high viewer retention.",
+            
+            // Libyan Ministry of Health
+            mLyName: "Libyan Ministry of Health",
+            mLyBio: "The official health awareness campaign for Hajj pilgrims.",
+            mLyDesc1: "<b>Video 3 (Pre-Travel Guidelines):</b> Editing of an awareness video for Hajj pilgrims. This production optimizes the visual flow to communicate official medical and safety protocols smoothly before takeoff.",
+            mLyDesc2: "<b>Video 4 (Healthcare During Rituals):</b> High-retention editing focusing on dynamic transitions to showcase heatstroke prevention and physical endurance tips for pilgrims.",
+            mLyDesc3: "<b>Video 5 (The Medical Kit):</b> Crafting clean asset animations and layouts to outline the essential medical supplies needed in each pilgrim's backpack for peak health security.",
+            mLyDesc4: "<b>Video 6 (Emergency Contacts):</b> On-screen kinetic typography design presenting the Libyan Medical Mission's official hotline numbers for immediate emergency responses.",
+
+            mClothHead: "Clothing Brands", 
+            // Mozayyana
+            mClothName: "MOZAYYANA Brand", 
+            mClothBio: "Luxury Abayas and female apparel brand.", 
+            mClothDesc: "A high-end commercial focus video with specialized color grading emphasizing texture and luxury.",
+            
+            // Kham Factory
+            mKhamName: "Kham Clothing Company & Factory",
+            mKhamBio: "A leading company and factory specializing in apparel manufacturing and garment production.",
+            mKhamDesc1: "<b>Video 2:</b> A promotional commercial showcasing the assembly lines and precision manufacturing inside Kham Factory, tailored to highlight industrial craftsmanship.",
+            mKhamDesc2: "<b>Video 3:</b> Dynamic social media montage focusing on fabric textures, fit quality, and aesthetic styling of the finished apparel collection.",
+
+            mAdsHead: "Commercials & Ads", 
+            mAdsName: "Al-ZURAYRIQ Fabrics Factory & Store", 
+            mAdsBio: "One of the largest and most renowned fabric stores in Libya.", 
+            mAdsDesc: "A premium promotional commercial highlighting the rich textures and diverse fabric selections. The editing combines fluid transitions and pacing designed to showcase product premium quality, aligning with the brand's prestigious reputation in Libya."
+        }
+    };
+
+    let currentLang = 'ar';
+    function selectLanguage(lang) {
+        currentLang = lang;
+        document.getElementById('html-tag').setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+        document.getElementById('prof-bio').innerHTML = translations[lang].bio;
+        document.getElementById('btn-whatsapp').innerText = translations[lang].whatsapp;
+        document.getElementById('btn-insta').innerText = translations[lang].insta;
+        document.getElementById('sec-title').innerText = translations[lang].sections;
+        document.getElementById('cat-med-title').innerText = translations[lang].medTitle;
+        document.getElementById('cat-cloth-title').innerText = translations[lang].clothTitle;
+        document.getElementById('cat-ads-title').innerText = translations[lang].adsTitle;
+        document.getElementById('footer-text').innerText = translations[lang].footer;
+        document.getElementById('m-med-head').innerText = translations[lang].mMedHead;
+        
+        // ربط داتا مستشفى الكمال
+        const nameTargets = document.querySelectorAll('.class-med-name-target');
+        const bioTargets = document.querySelectorAll('.class-med-bio-target');
+        nameTargets.forEach(el => el.innerText = translations[lang].mMedName);
+        bioTargets.forEach(el => el.innerText = translations[lang].mMedBio);
+        document.querySelector('.class-med-desc-target-1').innerHTML = translations[lang].mMedDesc1;
+        document.querySelector('.class-med-desc-target-2').innerHTML = translations[lang].mMedDesc2;
+
+        // ربط داتا وزارة الصحة الليبية
+        const lyNameTargets = document.querySelectorAll('.class-ly-name-target');
+        const lyBioTargets = document.querySelectorAll('.class-ly-bio-target');
+        lyNameTargets.forEach(el => el.innerText = translations[lang].mLyName);
+        lyBioTargets.forEach(el => el.innerText = translations[lang].mLyBio);
+        document.querySelector('.class-ly-desc-target-1').innerHTML = translations[lang].mLyDesc1;
+        document.querySelector('.class-ly-desc-target-2').innerHTML = translations[lang].mLyDesc2;
+        document.querySelector('.class-ly-desc-target-3').innerHTML = translations[lang].mLyDesc3;
+        document.querySelector('.class-ly-desc-target-4').innerHTML = translations[lang].mLyDesc4;
+
+        document.getElementById('m-cloth-head').innerText = translations[lang].mClothHead;
+        document.getElementById('m-cloth-name').innerText = translations[lang].mClothName;
+        document.getElementById('m-cloth-bio').innerText = translations[lang].mClothBio;
+        document.getElementById('m-cloth-desc').innerHTML = translations[lang].mClothDesc;
+        
+        // ربط داتا شركة خام للملابس
+        const khamNameTargets = document.querySelectorAll('.class-kham-name-target');
+        const khamBioTargets = document.querySelectorAll('.class-kham-bio-target');
+        khamNameTargets.forEach(el => el.innerText = translations[lang].mKhamName);
+        khamBioTargets.forEach(el => el.innerText = translations[lang].mKhamBio);
+        document.querySelector('.class-kham-desc-target-1').innerHTML = translations[lang].mKhamDesc1;
+        document.querySelector('.class-kham-desc-target-2').innerHTML = translations[lang].mKhamDesc2;
+
+        document.getElementById('m-ads-head').innerText = translations[lang].mAdsHead;
+        document.getElementById('m-ads-name').innerText = translations[lang].mAdsName;
+        document.getElementById('m-ads-bio').innerText = translations[lang].mAdsBio;
+        document.getElementById('m-ads-desc').innerHTML = translations[lang].mAdsDesc;
+        
+        document.getElementById('languageOverlay').style.display = 'none';
+        document.getElementById('mainMonitor').style.display = 'block';
+    }
+
+    function triggerModal(modalId) {
+        const loader = document.getElementById('loadingOverlay');
+        document.getElementById('loadingText').innerText = translations[currentLang].loading;
+        loader.style.display = 'flex';
+        setTimeout(() => { loader.style.display = 'none'; document.getElementById(modalId).style.display = "block"; }, 2000);
+    }
+    function closeModal(modalId) { document.getElementById(modalId).style.display = "none"; }
+    window.onclick = function(event) { if (event.target.classList.contains('modal')) event.target.style.display = "none"; }
+</script>
+</body>
+</html>
